@@ -18,22 +18,33 @@ document.addEventListener('keydown', function(e) {
 })
 
 // Função callback (função passada como argumento de outra função, que será executada mais tarde)
+
 function handleTryClick (event) {
     event.preventDefault() // "não envie o form"
-    //
+    // Seleciona o a id inputnumber com o queryselector e armazena em uma const
     const inputNumber = document.querySelector(`#inputNumber`)
-    //
+    // 
     if (Number(inputNumber.value) == randomNumber ) {
         // adição e remoção da lista de classe.
         toggleScreen()
         // adicionar algo dentro de um elemento (screen2)
-        screen2.querySelector("h2").innerText = `acertou em ${xAttemps} tentativas`
+        screen2.querySelector("h2").innerText = `Acertou em ${xAttemps} tentativa(s)`
+        xAttemps = 0
     }  
-    // Pega os valores de um input com value
-    inputNumber.value = ""
-    xAttemps++
-}
+        //Verificação se o numero é maior que 10 ou menor que 0, não permitindo a execução
+    if (inputNumber.value > 10) {
+        alert("Número maior que 10, digite algo entre 0 e 10.")    
+    } else if (inputNumber.value < 0){
+        alert("Número menor que 0, digite algo entre 0 e 10.")
+    }
+        // Verifica se o valor é um número
+    if (!isNaN(Number(inputNumber.value))) {
+        inputNumber.value = ""
+        xAttemps++
+      }
 
+}
+// Volta a tela para a inicial e reseta o número
 function handleResetClick() {
     toggleScreen()
     let xAttemps = 1
@@ -44,6 +55,3 @@ function toggleScreen() {
     screen1.classList.toggle("hide")
     screen2.classList.toggle("hide")
 }
-
-// alertar sobre numeros maiores que 10 e menores que 0
-// limitar o click
